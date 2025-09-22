@@ -10,7 +10,7 @@ double evaluate_rpn(const std::string& expression) {
     std::string token;
 
     while (iss >> token) {
-        if (token == "+" || token == "-" || token == "*" || token== "/") {
+        if (token == "+" || token == "-" || token == "*" || token== "/" || token == "^") {
             if (stack.size() < 2) throw std::invalid_argument("Notenough operands for operator " + token);
             double b = stack.top(); stack.pop();
             double a = stack.top(); stack.pop();
@@ -18,8 +18,11 @@ double evaluate_rpn(const std::string& expression) {
             else if (token == "-") stack.push(a - b);
             else if (token == "*") stack.push(a * b);
             else if (token == "/") {
-                if (b == 0) throw std::invalid_argument("Division by zero");
+                if (b == 0) throw std::invalid_argument("Division 3by zero");
                 stack.push(a / b);
+            }
+            else if (token == "^") {
+                stack.push(std::pow(a, b));
             }
         } else if (token == "sqrt") {
             if (stack.empty()) {
