@@ -1,18 +1,16 @@
 cmake_minimum_required(VERSION 3.20)
-project(RPN_Calculator VERSION 0.1 LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 20)
+project(Matrix_Calculator VERSION 0.1 LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Создаем БИБЛИОТЕКУ с нашей логикой
-add_library(rpn_lib src/rpn.cpp)
-target_include_directories(rpn_lib PUBLIC include)
-
-# Создаем исполняемый файл калькулятора и линкуем его с библиотекой
-add_executable(rpn_calculator src/main.cpp src/rpn.cpp)
-target_link_libraries(rpn_calculator PRIVATE rpn_lib)
-
-# Включаем тестирование и добавляем папку с тестами
+# Основная библиотека
+add_library(matrix_lib src/matrix.cpp include/matrix.h)
+target_include_directories(matrix_lib PUBLIC include)
+# Исполняемый файл
+add_executable(matrix_calculator src/main.cpp
+        include/matrix.h
+        src/matrix.cpp
+)
+target_link_libraries(matrix_calculator PRIVATE matrix_lib)
+# Тесты
 enable_testing()
 add_subdirectory(tests)
